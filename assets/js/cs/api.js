@@ -44,6 +44,18 @@ class TheServer {
     });
   }
 
+  delete(data) {
+    console.log(data);
+    $.ajax("/api/v1/tasks/" + data, {
+      method: "delete",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      success: (resp) => {
+        console.log("deleted");
+      },
+    });
+  }
+
   submit_login(data) {
     $.ajax("/api/v1/token", {
       method: "post",
