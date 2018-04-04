@@ -19,7 +19,13 @@ import "phoenix_html";
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+import store from "./cs/store";
+import api from "./cs/api";
 
 import task_init from "./cs/page";
 
-$(task_init);
+$(function() {
+  api.request_tasks();
+  api.request_users();
+  task_init(store);
+});
