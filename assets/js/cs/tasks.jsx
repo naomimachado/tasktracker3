@@ -1,5 +1,6 @@
 import React from 'react';
 import {Card, CardBody, Button} from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import api from './api';
@@ -23,6 +24,14 @@ function Task(params){
     api.request_tasks();
   }
 
+  function edit_task(ev){
+    console.log("task should be editable");
+    console.log("task id", task.id);
+    api.request_tasks();
+  }
+
+
+
   return <Card>
     <CardBody>
       <div>
@@ -31,11 +40,13 @@ function Task(params){
         <p>Task Description:{task.task_description}</p>
         <p>Task Completed:{task.completed}</p>
         <p>Time taken:{task.time_taken}(mins)</p>
+        <Link to={"/tasks/" + task.id} ><Button color="primary">Edit Task</Button></Link><br/>
         <Button onClick={delete_task} color="danger">Delete Task</Button>
       </div>
     </CardBody>
   </Card>;
 }
+
 
 // function state2props(state) {
 //   console.log("rerender in task", state);

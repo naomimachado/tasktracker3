@@ -12,6 +12,12 @@ defmodule Tasktracker3Web.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    IO.inspect user_params
+    hash = Comeonin.Argon2.hashpwsalt(user_params["pass"])
+    IO.inspect hash
+    Map.delete(user_params, "pass")
+    user_params = Map.put_new(user_params, "password_hash", hash)
+    IO.inspect user_params
     with {:ok, %User{} = user} <- Users.create_user(user_params) do
       conn
       |> put_status(:created)

@@ -20,7 +20,7 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
     console.log(props.login);
   }
 
-  return <div className="navbar-text">
+  return <div className="navbar-brand">
     <Form inline>
       <FormGroup>
         <Input type="email" name="email" placeholder="email"
@@ -30,7 +30,7 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
         <Input type="password" name="pass" placeholder="password"
                value={props.login.pass} onChange={update} />
       </FormGroup>
-      <Button onClick={create_token}>Log In</Button>
+      <Button onClick={create_token} type="button" className="btn btn-primary">Log In</Button>
     </Form>
   </div>;
 });
@@ -42,9 +42,9 @@ let Session = connect(({token}) => {return {token};})((props) => {
     props.dispatch({type: 'CLEAR_LOGIN_FORM'});
   }
 
-  return <div className="navbar-text">
+  return <div className="navbar-brand">
     User: { props.token.name }
-    <Button onClick={nullify_token}>Log Out</Button>
+    <Button onClick={nullify_token} color="danger">Log Out</Button>
   </div>;
 });
 
@@ -59,19 +59,13 @@ function Nav(props) {
   }
 
   return (
-    <nav className="navbar navbar-dark bg-dark navbar-expand">
+    <nav className="navbar navbar-dark bg-dark ">
       <span className="navbar-brand">
         Task Tracker
       </span>
-      <ul className="navbar-nav mr-auto">
-        <NavItem>
-          <NavLink to="/" exact={true} activeClassName="active" className="nav-link">Tasks</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink to="/users" exact={true} activeClassName="active" className="nav-link">Users</NavLink>
-        </NavItem>
-      </ul>
-      { session_info }
+      <div id="log">
+        { session_info }
+      </div>
     </nav>
   );
 }

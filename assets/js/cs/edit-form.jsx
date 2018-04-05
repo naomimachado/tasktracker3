@@ -1,13 +1,16 @@
 import React from 'react';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import api from './api';
 
 import { connect } from 'react-redux';
 
-function TaskForm(params) {
+function EditForm(params) {
 
   function update(ev) {
     let tgt = $(ev.target);
+
+    console.log("form", params.form);
 
     let data = {};
     data[tgt.attr('name')] = tgt.val();
@@ -19,21 +22,44 @@ function TaskForm(params) {
     params.dispatch(action);
   }
 
+  function assign(task){
+    let action = {
+      type: 'UPDATE_FORM',
+      data: {completed: task.completed,
+              task_description: task.task_description,
+              task_name: task.task_name,
+              time_taken: task.time_taken,
+              user_id: task.user.id}
+    };
+    params.dispatch(action);
+  }
+
   function submit(ev) {
-    console.log("Should create post.");
+    console.log("Should edit post.");
     console.log(params.form);
-    api.submit_task(params.form);
+    api.edit(params.form, task.id);
     params.dispatch({type: 'CLEAR_FORM'});
+    api.request_tasks();
+  }
+
+  let users = _.map(params.users, (uu) => <option key={uu.id} value={uu.id}>{uu.name}</option>);
+  console.log("result", params);
+  let task = params.tasks[0];
+  console.log("task", task);
+  console.log("task data", params.form);
+
+  if(params.form.user_id == "" ){
+    console.log("inside if");
+    assign(task);
+    console.log("after if");
   }
 
 
-  let users = _.map(params.users, (uu) => <option key={uu.id} value={uu.id}>{uu.name}</option>);
   return <div style={ {padding: "4ex"} }>
-    <FormGroup id="TaskForm">
+    <FormGroup id="EditForm">
     <FormGroup>
       <Label for="user_id">Assign to:</Label>
       <Input type="select" name="user_id" value={params.form.user_id} onChange={update}>
-        <option>Select User </option>
         { users }
       </Input>
     </FormGroup>
@@ -57,7 +83,7 @@ function TaskForm(params) {
       <option value="Complete">Complete</option>
       </Input>
     </FormGroup>
-    <Button onClick={submit} color="primary">Assign</Button>
+    <Link to={"/"}><Button onClick={submit} color="primary">Update</Button></Link>
     </FormGroup>
   </div>;
 }
@@ -68,4 +94,4 @@ function state2props(state) {
            users: state.users,};
 }
 
-export default connect(state2props)(TaskForm);
+export default connect(state2props)(EditForm);
