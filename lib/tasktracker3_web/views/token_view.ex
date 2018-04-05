@@ -9,4 +9,8 @@ defmodule Tasktracker3Web.TokenView do
     }
   end
 
+  def render("token.json", %{}) do
+    nil
+  end
+
 end

@@ -15,13 +15,10 @@ function TaskForm(params) {
       type: 'UPDATE_FORM',
       data: data,
     };
-    console.log(action);
     params.dispatch(action);
   }
 
   function submit(ev) {
-    console.log("Should create post.");
-    console.log(params.form);
     api.submit_task(params.form);
     params.dispatch({type: 'CLEAR_FORM'});
   }
@@ -63,7 +60,6 @@ function TaskForm(params) {
 }
 
 function state2props(state) {
-  console.log("rerender", state);
   return { form: state.form,
            users: state.users,};
 }

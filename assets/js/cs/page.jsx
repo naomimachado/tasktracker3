@@ -22,7 +22,6 @@ export default function task_init(store) {
 }
 
 let Task = connect((state) => state)((props) => {
-    console.log("props",props);
 
     if (props.token == null){
       return <Router>

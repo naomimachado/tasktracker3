@@ -15,15 +15,18 @@ function RegisterForm(params) {
       type: 'UPDATE_REGISTER_FORM',
       data: data,
     };
-    console.log(action);
+    
     params.dispatch(action);
   }
 
   function submit(ev) {
-    console.log("Should create a new user.");
-    console.log(params.loginform);
-    api.add_user(params.loginform);
-    params.dispatch({type: 'CLEAR_REGISTER_FORM'});
+
+    if(params.loginform.pass == ""){
+      alert("PLEASE FILL ALL FIELDS AND TRY AGAIN FRONT!");
+    } else {
+      api.add_user(params.loginform);
+      params.dispatch({type: 'CLEAR_REGISTER_FORM'});
+    }
   }
 
   return <div style={ {padding: "4ex"} }>
@@ -47,7 +50,7 @@ function RegisterForm(params) {
 }
 
 function state2props(state) {
-  console.log("rerender", state);
+
   return { form: state.form,
            users: state.users,
            loginform: state.loginform};

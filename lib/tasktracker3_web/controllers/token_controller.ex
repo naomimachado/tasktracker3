@@ -13,4 +13,10 @@ defmodule Tasktracker3Web.TokenController do
     end
   end
 
+  def create(conn, %{}) do
+      conn
+      |> put_status(:created)
+      |> render("token.json")
+  end
+
 end

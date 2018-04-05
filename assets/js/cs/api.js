@@ -58,17 +58,21 @@ class TheServer {
         });
         this.submit_login(data);
       },
+      error: (resp) => {
+        alert("PLEASE FILL ALL FIELDS AND TRY AGAIN!");
+        store.dispatch({
+          type: 'CLEAR_REGISTER_FORM',
+        })
+      },
     });
   }
 
   delete(data) {
-    console.log(data);
     $.ajax("/api/v1/tasks/" + data, {
       method: "delete",
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
       success: (resp) => {
-        console.log("deleted");
       },
     });
   }
@@ -105,6 +109,21 @@ class TheServer {
       },
     });
   }
+
+  logout() {
+    $.ajax("/api/v1/token", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({}),
+      success: (resp) => {
+        store.dispatch({
+          type: 'CLEAR_TOKEN',
+          token: resp,
+        });
+      }
+  });
+}
 }
 
 

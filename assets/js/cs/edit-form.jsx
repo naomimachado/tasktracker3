@@ -10,15 +10,12 @@ function EditForm(params) {
   function update(ev) {
     let tgt = $(ev.target);
 
-    console.log("form", params.form);
-
     let data = {};
     data[tgt.attr('name')] = tgt.val();
     let action = {
       type: 'UPDATE_FORM',
       data: data,
     };
-    console.log(action);
     params.dispatch(action);
   }
 
@@ -35,23 +32,17 @@ function EditForm(params) {
   }
 
   function submit(ev) {
-    console.log("Should edit post.");
-    console.log(params.form);
     api.edit(params.form, task.id);
     params.dispatch({type: 'CLEAR_FORM'});
     api.request_tasks();
   }
 
   let users = _.map(params.users, (uu) => <option key={uu.id} value={uu.id}>{uu.name}</option>);
-  console.log("result", params);
+
   let task = params.tasks[0];
-  console.log("task", task);
-  console.log("task data", params.form);
 
   if(params.form.user_id == "" ){
-    console.log("inside if");
     assign(task);
-    console.log("after if");
   }
 
 
@@ -78,7 +69,6 @@ function EditForm(params) {
     <FormGroup>
       <Label for="completed">Completed:</Label>
       <Input type="select" name="completed" value={params.form.completed} onChange={update}>
-      <option>Select Task Status </option>
       <option value="Pending">Pending</option>
       <option value="Complete">Complete</option>
       </Input>
@@ -89,7 +79,6 @@ function EditForm(params) {
 }
 
 function state2props(state) {
-  console.log("rerender", state);
   return { form: state.form,
            users: state.users,};
 }

@@ -66,7 +66,7 @@ function token(state = null, action) {
     case 'SET_TOKEN':
       return action.token;
     case 'CLEAR_TOKEN':
-      return null;
+      return action.token;
     default:
       return state;
   }
@@ -90,12 +90,11 @@ function login(state = empty_login, action) {
 
 
 function root_reducer(state0, action) {
-  console.log("reducer", action);
-  console.log("state0", state0);
+
   let reducer = combineReducers({tasks, users, form, token, login, loginform});
-  console.log("afterCombine", reducer);
+
   let state1 = reducer(state0, action);
-  console.log("state1", state1);
+
   return deepFreeze(state1);
 };
 

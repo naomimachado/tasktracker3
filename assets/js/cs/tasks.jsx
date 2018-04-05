@@ -17,16 +17,12 @@ function Task(params){
   let task = params.task;
 
   function delete_task(ev){
-    console.log("task should be deleted");
-    console.log("task id", task.id);
     api.delete(task.id);
     api.request_tasks();
     api.request_tasks();
   }
 
   function edit_task(ev){
-    console.log("task should be editable");
-    console.log("task id", task.id);
     api.request_tasks();
   }
 
@@ -46,13 +42,3 @@ function Task(params){
     </CardBody>
   </Card>;
 }
-
-
-// function state2props(state) {
-//   console.log("rerender in task", state);
-//   return {
-//     tasks: state.tasks,
-//   };
-// }
-
-//export default connect(state2props)(Tasks);

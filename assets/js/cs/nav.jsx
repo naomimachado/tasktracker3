@@ -17,7 +17,6 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
 
   function create_token(ev) {
     api.submit_login(props.login);
-    console.log(props.login);
   }
 
   return <div className="navbar-brand">
@@ -38,7 +37,7 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
 let Session = connect(({token}) => {return {token};})((props) => {
 
   function nullify_token(ev){
-    props.dispatch({type: 'CLEAR_TOKEN'});
+    api.logout();
     props.dispatch({type: 'CLEAR_LOGIN_FORM'});
   }
 
