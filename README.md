@@ -1,5 +1,16 @@
 # Tasktracker3
 
+Design Decisions:
+ * All the users can assign tasks to any other user.
+ * The users can edit their or other users tasks.
+ * A list of all the tasks in the system is visible to all users.
+ * The users can edit or delete any of the tasks.
+ * The user can select tasks as pending or completed.
+ * The user must create a password while registering for the first time.
+ * The user can login using his email-id and password.
+ * There is only one page in the application.
+ * All the pages are rendered using react-router and react-redux.
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
